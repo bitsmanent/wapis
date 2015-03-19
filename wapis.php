@@ -45,13 +45,13 @@ function wapis_for($str, $callback) {
 	];
 	$services = wapis_getall();
 	foreach($services as $s => $h)
-		$callback($s, $h, $qi);
+		$callback($s, $h, $qi, wapis_get($s, $qi));
 }
 
 /* debug */
 /*
-wapis_for('Palermo, Italy', function($s, $h, $qi) {
-	echo strtoupper($s).":\n".print_r(wapis_get($s, $qi), 1)."\n\n";
+wapis_for('Palermo, Italy', function($s, $h, $qi, $d) {
+	echo strtoupper($s).":\n".print_r($d, 1)."\n\n";
 });
 */
 
