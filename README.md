@@ -9,6 +9,8 @@ No help welcomed yet.
 * wapis_services(): returns an array of services (names only)
 * wapis_query($service, $queryinfo): query the given $service as specified by $queryinfo and returns the response data
 
+``$service`` is a string representing the service (see *services* below).
+
 The `$queryinfo` is configured like this:
 ```
 $qi = [
@@ -36,8 +38,7 @@ Which produces a response data like this:
 More data and documentation will be added soon.
 
 ##### Services
-Currently implemented services are:
-
-* Forecast: [forecast.io](http://forecast.io)
-* OpenWeatherMap: [openweathermap.org](http://openweathermap.org)
-* WorldWeatherOnline: [worldweatheronline.com](http://worldweatheronline.com)
+Here are the currently implemented services along with the strings that wapis uses to identify them:
+* [Forecast.io](http://forecast.io) - forecast
+* [OpenWeatherMap](http://openweathermap.org) - owmap
+* [WorldWeatherOnline](http://worldweatheronline.com) - wwonline
