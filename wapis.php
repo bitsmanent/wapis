@@ -18,9 +18,9 @@ function wapis_services() {
 	return $WAPIS;
 }
 
-function wapis_query($service, $qi) {
+function wapis_query($service, $queryinfo) {
 	global $WAPIS;
-	return (isset($WAPIS[$service]) ? $WAPIS[$service]($qi) : null);
+	return (isset($WAPIS[$service]) ? $WAPIS[$service]($queryinfo) : null);
 }
 
 ?>
