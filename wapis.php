@@ -7,8 +7,8 @@ foreach(glob(PATH_SERVICES.'/*.php') as $s)
 
 global $WAPIS;
 $WAPIS = [
-	//'forecast' => 'forecast_query',
-	//'openweathermap' => 'owmap_query',
+	'forecast' => 'forecast_query',
+	'openweathermap' => 'owmap_query',
 	'worldweatheronline' => 'wwonline_query',
 	//'ilmeteoit' => 'ilmeteoit_query',
 ];
@@ -31,8 +31,7 @@ function str2coords($str) {
 	return (@$d['results'][0]['geometry']['location']);
 }
 
-/*
-function runemall($str) {
+function wapis_for($str, $callback) {
 	$t = str2coords($str);
 	if(!$t)
 		die("${str}: no coordinates found.\n");
@@ -46,9 +45,14 @@ function runemall($str) {
 	];
 	$services = wapis_getall();
 	foreach($services as $s => $h)
-		echo strtoupper($s).":\n".print_r(wapis_get($s, $qi), 1)."\n\n";
+		$callback($s, $h, $qi);
 }
-runemall('Palermo, Italy');
+
+/* debug */
+/*
+wapis_for('Palermo, Italy', function($s, $h, $qi) {
+	echo strtoupper($s).":\n".print_r(wapis_get($s, $qi), 1)."\n\n";
+});
 */
 
 ?>
