@@ -31,28 +31,4 @@ function str2coords($str) {
 	return (@$d['results'][0]['geometry']['location']);
 }
 
-function wapis_for($str, $callback) {
-	$t = str2coords($str);
-	if(!$t)
-		die("${str}: no coordinates found.\n");
-	$lat = $t['lat'];
-	$lon = $t['lng'];
-	$qi = [
-		'lat' => $lat,
-		'lon' => $lon,
-		'cnt' => 7,
-		'raw' => 0
-	];
-	$services = wapis_getall();
-	foreach($services as $s => $h)
-		$callback($s, $h, $qi, wapis_get($s, $qi));
-}
-
-/* debug */
-/*
-wapis_for('Palermo, Italy', function($s, $h, $qi, $d) {
-	echo strtoupper($s).":\n".print_r($d, 1)."\n\n";
-});
-*/
-
 ?>
