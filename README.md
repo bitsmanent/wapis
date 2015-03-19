@@ -12,23 +12,23 @@ No help welcomed yet.
 The `$queryinfo` is configured like this:
 ```
 $qi = [
-        'lat' => 38.1405023, /* Latitude */
-        'lon' => 13.3572886, /* Longitude */
-        'cnt' => 7, /* Count - # of items (may not be honored) */
-        'raw' => 0 /* If true, the response is returned as-is (only for debug) */
+        'lat' => 38.1405023,    /* Latitude */
+        'lon' => 13.3572886,    /* Longitude */
+        'cnt' => 7,             /* Count - # of items (may not be honored) */
+        'raw' => 0              /* If true, the response is returned as-is (only for debug) */
 ];
 ```
 
-The response data is like this:
+Which produces a response data like this:
 ```
 [service] => forecast
 [weather] => Array
     (
         [0] => Array
             (
-                [ts] => 1426789436
-                [temp] => 57.25
-                [windspeed] => 4.10
+                [ts] => 1426789436      /* Timestamp of the weather observation, if available */
+                [temp] => 57.25         /* temperature in celsius degrees */
+                [windspeed] => 4.10     /* wind speed in kmph */
             )
         ...
 ```
