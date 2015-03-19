@@ -1,5 +1,4 @@
 <?php
-
 define('OWMAP_BASE', 'http://api.openweathermap.org/data/2.5/forecast/daily');
 
 function owmap_query($qi) {

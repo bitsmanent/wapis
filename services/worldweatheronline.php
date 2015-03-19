@@ -1,9 +1,9 @@
 <?php
-
-define('WWONLINE_APIKEY', ''); // 5 queries per second; 12.000 per day
 define('WWONLINE_BASE', 'http://api.worldweatheronline.com/free/v2/weather.ashx');
 
 function wwonline_query($qi) {
+	if(!defined('WWONLINE_APIKEY'))
+		return 'WWONLINE_APIKEY not set';
 	$d = wwonline_exec($qi['lat'], $qi['lon'], $qi['cnt'], 'json');
 	if($qi['raw'])
 		return $d;

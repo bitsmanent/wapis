@@ -1,9 +1,9 @@
 <?php
-
-define('FORECAST_APIKEY', ''); // 1000 calls per day
-define('FORECAST_BASE', 'https://api.forecast.io/forecast/'.FORECAST_APIKEY.'/');
+define('FORECAST_BASE', 'https://api.forecast.io/forecast/');
 
 function forecast_query($qi) {
+	if(!defined('FORECAST_APIKEY'))
+		return 'FORECAST_APIKEY not set';
 	$d = forecast_exec($qi['lat'], $qi['lon'], 0);
 	if($qi['raw'])
 		return $d;
@@ -11,7 +11,7 @@ function forecast_query($qi) {
 }
 
 function forecast_exec($lat, $lon, $tm) {
-	$uri = FORECAST_BASE."${lat},${lon}";
+	$uri = FORECAST_BASE.FORECAST_APIKEY."/${lat},${lon}";
 	if($tm)
 		$uri .= ",${tm}";
 	if(!($d = file_get_contents($uri)))
