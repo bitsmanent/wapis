@@ -13,12 +13,12 @@ $WAPIS = [
 	//'ilmeteoit' => 'ilmeteoit_query',
 ];
 
-function wapis_getall() {
+function wapis_services() {
 	global $WAPIS;
 	return $WAPIS;
 }
 
-function wapis_get($service, $qi) {
+function wapis_query($service, $qi) {
 	global $WAPIS;
 	return (isset($WAPIS[$service]) ? $WAPIS[$service]($qi) : null);
 }

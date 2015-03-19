@@ -24,9 +24,9 @@ function main() {
 		'cnt' => 7,
 		'raw' => 0
 	];
-	$services = wapis_getall();
+	$services = wapis_services();
 	foreach($services as $s => $h)
-		echo strtoupper($s).":\n".print_r(wapis_get($s, $qi), 1)."\n\n";
+		echo strtoupper($s).":\n".print_r(wapis_query($s, $qi), 1)."\n\n";
 }
 
 main();
