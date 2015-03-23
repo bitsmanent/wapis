@@ -14,6 +14,7 @@ function forecast_exec($lat, $lon, $tm) {
 	$uri = FORECAST_BASE.FORECAST_APIKEY."/${lat},${lon}";
 	if($tm)
 		$uri .= ",${tm}";
+	$uri .= '?units=ca';
 	if(!($d = file_get_contents($uri)))
 		return NULL;
 	return json_decode($d);
@@ -35,7 +36,7 @@ function forecast_refine($data) {
 	for($i = 0; $i < $cnt; ++$i) {
 		$ret['weather'][] = [
 			'ts' => $data->daily->data[$i]->time,
-			'temp' => (($data->daily->data[$i]->temperatureMin + $data->daily->data[$i]->temperatureMax)  / 2),
+			'temp' => (($data->daily->data[$i]->temperatureMin + $data->daily->data[$i]->temperatureMax) / 2),
 			'windspeed' => number_format($data->daily->data[$i]->windSpeed, 2),
 		];
 	}

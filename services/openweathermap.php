@@ -13,7 +13,8 @@ function owmap_exec($lat, $lon, $cnt, $mode) {
 		'lat' => $lat,
 		'lon' => $lon,
 		'cnt' => $cnt,
-		'mode' => $mode
+		'mode' => $mode,
+		'units' => 'metric'
 	];
 	$uri = OWMAP_BASE.'?'.http_build_query($qry);
 	if(!($d = file_get_contents($uri)))
