@@ -16,17 +16,9 @@ function main() {
 	$t = str2coords($str);
 	if(!$t)
 		die("${str}: no coordinates found.\n");
-	$lat = $t['lat'];
-	$lon = $t['lng'];
-	$qi = [
-		'lat' => $lat,
-		'lon' => $lon,
-		'cnt' => 7,
-		'raw' => 0
-	];
 	$services = wapis_services();
-	foreach($services as $s => $h)
-		echo strtoupper($s).":\n".print_r(wapis_query($s, $qi), 1)."\n\n";
+	foreach($services as $s)
+		echo strtoupper($s).":\n".print_r(wapis_query($s, $t['lat'], $t['lng'], 7), 1)."\n\n";
 }
 
 main();
