@@ -1,23 +1,18 @@
 <?php
 define('FORECAST_BASE', 'https://api.forecast.io/forecast/');
 
-function forecast_query($qi) {
+function forecast_query($lat, $lon, $cnt) {
 	if(!defined('FORECAST_APIKEY'))
 		return 'FORECAST_APIKEY not set';
-	$d = forecast_exec($qi['lat'], $qi['lon'], 0);
-	if($qi['raw'])
-		return $d;
-	return forecast_refine($d);
-}
-
-function forecast_exec($lat, $lon, $tm) {
+	/* XXX $cnt not implemented */
+	$tm = 0;
 	$uri = FORECAST_BASE.FORECAST_APIKEY."/${lat},${lon}";
 	if($tm)
 		$uri .= ",${tm}";
 	$uri .= '?units=ca';
 	if(!($d = file_get_contents($uri)))
 		return NULL;
-	return json_decode($d);
+	return forecast_refine(json_decode($d));
 }
 
 function forecast_refine($data) {

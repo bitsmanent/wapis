@@ -7,21 +7,14 @@ No help welcomed yet.
 
 ##### Interface
 * wapis_services(): returns an array of services (names only)
-* wapis_query($service, $queryinfo): query the given $service as specified by $queryinfo and returns the response data
+* wapis_query($service, $latitude, $longitude, $count): query the given $service as for specified coordinates
 
-``$service`` is a string representing the service (see *services* below).
+The ``$service`` argument is a string representing the service (see *services*
+below). No explanation needed for ``$latitude`` and ``$longitude``. The
+``$count`` parameter set the number of records to retrieve, if supported by the
+services. Note that the ``$count`` parameter may not be honored.
 
-The `$queryinfo` is configured like this:
-```
-$qi = [
-        'lat' => 38.1405023,    /* Latitude */
-        'lon' => 13.3572886,    /* Longitude */
-        'cnt' => 7,             /* Count - # of items (may not be honored) */
-        'raw' => 0              /* If true, the response is returned as-is (only for debug) */
-];
-```
-
-Which produces a response data like this:
+A call to wapis_query() produces a response data like this:
 ```
 [service] => forecast
 [weather] => Array

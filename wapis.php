@@ -1,26 +1,24 @@
 <?php
-define('PATH_SERVICES', 'services');
 
-/* include all services */
-foreach(glob(PATH_SERVICES.'/*.php') as $s)
-	include($s);
+/* services */
+include('services/forecast.php');
+include('services/owmap.php');
+include('services/wwonline.php');
 
-global $WAPIS;
-$WAPIS = [
-	'forecast' => 'forecast_query',
-	'worldweatheronline' => 'wwonline_query',
-	'openweathermap' => 'owmap_query',
-	//'ilmeteoit' => 'ilmeteoit_query',
-];
+/* globals */
+$WAPIS_SERVICES = ['forecast', 'owmap', 'wwonline'];
 
+/* function implementations */
 function wapis_services() {
-	global $WAPIS;
-	return $WAPIS;
+	global $WAPIS_SERVICES;
+	return $WAPIS_SERVICES;
 }
 
-function wapis_query($service, $queryinfo) {
-	global $WAPIS;
-	return (isset($WAPIS[$service]) ? $WAPIS[$service]($queryinfo) : null);
+function wapis_query($service, $lat, $lon, $cnt) {
+	$fn = "${service}_query";
+	if(!function_exists($fn))
+		return null;
+	return $fn($lat, $lon, $cnt);
 }
 
 ?>
