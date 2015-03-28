@@ -9,9 +9,10 @@ function wwonline_query($lat, $lon, $cnt) {
 		'num_of_days' => $cnt,
 		'key' => WWONLINE_APIKEY,
 		'format' => 'json',
+		'showmap' => 'no',
 		'show_comments' => 'no',
 		'tp' => 24, /* 24h intval (daily) */
-		'date' => 'today',
+		'date' => 'today'
 	);
 	$uri = WWONLINE_BASE.'?'.http_build_query($opts);
 	if(!($d = file_get_contents($uri)))
@@ -26,11 +27,13 @@ function wwonline_refine($data) {
 		'weather' => []
 	];
 
+	/*
 	$ret['weather'][] = [
 		'ts' => strtotime($data->current_condition[0]->observation_time),
 		'temp' => $data->current_condition[0]->temp_C,
 		'windspeed' => $data->current_condition[0]->windspeedKmph,
 	];
+	*/
 
 	$cnt = count($data->weather);
 	for($i = 0; $i < $cnt; ++$i) {

@@ -5,8 +5,8 @@ function forecast_query($lat, $lon, $cnt) {
 	if(!defined('FORECAST_APIKEY'))
 		return 'FORECAST_APIKEY not set';
 	/* XXX $cnt not implemented */
-	$tm = 0;
 	$uri = FORECAST_BASE.FORECAST_APIKEY."/${lat},${lon}";
+	$tm = 0;
 	if($tm)
 		$uri .= ",${tm}";
 	$uri .= '?units=ca';
@@ -21,11 +21,13 @@ function forecast_refine($data) {
 		'weather' => []
 	];
 
+	/*
 	$ret['weather'][] = [
 		'ts' => $data->currently->time,
 		'temp' => $data->currently->temperature,
 		'windspeed' => number_format($data->currently->windSpeed, 2),
 	];
+	*/
 
 	$cnt = count($data->daily->data);
 	for($i = 0; $i < $cnt; ++$i) {
