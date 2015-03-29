@@ -6,6 +6,7 @@ include('services/owmap.php');
 include('services/wwonline.php');
 
 /* globals */
+global $WAPIS_SERVICES;
 $WAPIS_SERVICES = ['forecast', 'owmap', 'wwonline'];
 
 /* function implementations */
