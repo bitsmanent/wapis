@@ -27,13 +27,11 @@ function wwonline_refine($data) {
 		'weather' => []
 	];
 
-	/*
-	$ret['weather'][] = [
+	$ret['current'] = [
 		'ts' => strtotime($data->current_condition[0]->observation_time),
 		'temp' => $data->current_condition[0]->temp_C,
 		'windspeed' => $data->current_condition[0]->windspeedKmph,
 	];
-	*/
 
 	$cnt = count($data->weather);
 	for($i = 0; $i < $cnt; ++$i) {

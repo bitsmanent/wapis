@@ -21,13 +21,11 @@ function forecast_refine($data) {
 		'weather' => []
 	];
 
-	/*
-	$ret['weather'][] = [
+	$ret['current'][] = [
 		'ts' => $data->currently->time,
 		'temp' => $data->currently->temperature,
 		'windspeed' => number_format($data->currently->windSpeed, 2),
 	];
-	*/
 
 	$cnt = count($data->daily->data);
 	for($i = 0; $i < $cnt; ++$i) {
