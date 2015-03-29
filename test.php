@@ -1,15 +1,8 @@
 <?php
 require('wapis.php');
 
-define('WWONLINE_APIKEY', '');
 define('FORECAST_APIKEY', '');
-
-function str2coords($str) {
-	$str = rawurlencode($str);
-	$uri = "http://maps.googleapis.com/maps/api/geocode/json?address=${str}&sensor=true";
-	$d = json_decode(file_get_contents($uri), 1);
-	return (@$d['results'][0]['geometry']['location']);
-}
+define('WWONLINE_APIKEY', '');
 
 function main() {
 	$str = 'Palermo, Italy';
