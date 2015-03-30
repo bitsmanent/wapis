@@ -28,8 +28,8 @@ A call to wapis_query() produces a response data like this:
         ...
 ```
 
-Optionally, the ``current`` key may be set with current weather informations.
-More data and documentation will be added soon.
+Optionally, the ``current`` key may be filled with the current weather
+informations. More data and documentation will be added soon.
 
 ##### Services
 Here are the currently implemented services along with the strings that wapis uses to identify them:
