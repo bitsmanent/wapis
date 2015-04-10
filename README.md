@@ -32,7 +32,7 @@ Optionally, the ``current`` key may be filled with the current weather
 informations. More data and documentation will be added soon.
 
 ##### Services
-Here are the currently implemented services along with the strings that wapis uses to identify them:
+Here are the currently implemented services:
 * [Forecast.io](http://forecast.io) - forecast
 * [OpenWeatherMap](http://openweathermap.org) - owmap
 * [WorldWeatherOnline](http://worldweatheronline.com) - wwonline
