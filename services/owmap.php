@@ -10,7 +10,7 @@ function owmap_query($lat, $lon, $cnt) {
 		'units' => 'metric'
 	];
 	$uri = OWMAP_BASE.'?'.http_build_query($qry);
-	if(!($d = @file_get_contents($uri)))
+	if(!($d = file_get_contents($uri)))
 		return NULL;
 	return owmap_refine(json_decode($d));
 }
