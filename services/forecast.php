@@ -21,7 +21,7 @@ function forecast_refine($data) {
 		'weather' => []
 	];
 
-	$ret['current'][] = [
+	$ret['current'] = [
 		'ts' => $data->currently->time,
 		'temp' => $data->currently->temperature,
 		'windspeed' => number_format($data->currently->windSpeed, 2),
