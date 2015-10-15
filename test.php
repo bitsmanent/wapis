@@ -3,6 +3,7 @@ require('wapis.php');
 
 define('FORECAST_APIKEY', '');
 define('WWONLINE_APIKEY', '');
+define('OWMAP_APIKEY', '');
 
 function main() {
 	$str = 'Palermo, Italy';

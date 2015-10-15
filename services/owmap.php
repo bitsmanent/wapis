@@ -9,6 +9,8 @@ function owmap_query($lat, $lon, $cnt) {
 		'mode' => 'json',
 		'units' => 'metric'
 	];
+	if(defined('OWMAP_APIKEY'))
+		$qry['APPID'] = OWMAP_APIKEY;
 	$uri = OWMAP_BASE.'?'.http_build_query($qry);
 	if(!($d = file_get_contents($uri)))
 		return NULL;
