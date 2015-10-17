@@ -7,12 +7,13 @@ define('OWMAP_APIKEY', '');
 
 function main() {
 	$str = 'Palermo, Italy';
-	$t = str2coords($str);
-	if(!$t)
+	$geo = strgeo($str);
+	if(!($geo && ($coords = $geo['coords'])))
 		die("${str}: no coordinates found.\n");
 	$services = wapis_services();
+	echo "GEO:\n".print_r($geo, 1)."\n\n";
 	foreach($services as $s) {
-		$d = wapis_query($s, $t['lat'], $t['lng'], 7);
+		$d = wapis_query($s, $coords['lat'], $coords['lng'], 7);
 		if($d) {
 			foreach($d['weather'] as &$w)
 				$w['ht'] = date('d-m-Y h:m', $w['ts']);

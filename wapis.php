@@ -22,11 +22,17 @@ function wapis_query($service, $lat, $lon, $cnt) {
 	return $fn($lat, $lon, $cnt);
 }
 
-function str2coords($str) {
-	$str = rawurlencode($str);
-	$uri = "http://maps.googleapis.com/maps/api/geocode/json?address=${str}&sensor=true";
-	$d = json_decode(file_get_contents($uri), 1);
-	return (@$d['results'][0]['geometry']['location']);
+function strgeo($str) {
+        $str = rawurlencode($str);
+        $uri = "http://maps.googleapis.com/maps/api/geocode/json?address=${str}&sensor=true";
+        $d = json_decode(file_get_contents($uri), 1);
+        $d = (@$d['results'][0]);
+        if(!$d)
+                return NULL;
+        return [
+                'targetf' => $d['formatted_address'],
+                'coords' => $d['geometry']['location'],
+        ];
 }
 
 ?>
