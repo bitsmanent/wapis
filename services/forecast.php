@@ -9,7 +9,12 @@ function forecast_query($lat, $lon, $cnt) {
 	$tm = 0;
 	if($tm)
 		$uri .= ",${tm}";
-	$uri .= '?units=ca';
+	
+	$qry = [
+		'units' => 'ca',
+		'exclude' => 'minutely,hourly,alerts,flags'
+	];
+	$uri .= '?'.http_build_query($qry);
 	if(!($d = file_get_contents($uri)))
 		return NULL;
 	return forecast_refine(json_decode($d));
