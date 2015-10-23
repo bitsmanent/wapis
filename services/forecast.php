@@ -11,7 +11,7 @@ function forecast_query($lat, $lon, $cnt) {
 		$uri .= ",${tm}";
 	$qry = [
 		'units' => 'ca',
-		'exclude' => 'minutely,hourly,alerts,flags'
+		'exclude' => 'minutely,alerts,flags'
 	];
 	$uri .= '?'.http_build_query($qry);
 	if(!($d = file_get_contents($uri)))
@@ -32,13 +32,40 @@ function forecast_refine($data) {
 	];
 
 	$cnt = count($data->daily->data);
-	for($i = 0; $i < $cnt; ++$i) {
+	foreach($data->daily->data as $d) {
+		if(--$cnt < 0)
+			break;
+		$hourly = [];
 		$ret['weather'][] = [
-			'ts' => $data->daily->data[$i]->time,
-			'temp' => (($data->daily->data[$i]->temperatureMin + $data->daily->data[$i]->temperatureMax) / 2),
-			'windspeed' => number_format($data->daily->data[$i]->windSpeed, 2),
+			'ts' => $d->time,
+			'temp' => (($d->temperatureMin + $d->temperatureMax) / 2),
+			'windspeed' => number_format($d->windSpeed, 2),
+			'hourly' => []
 		];
 	}
+
+	/* Handle hourly... */
+	$i = 0;
+	$idx = 0;
+	$hourly = [];
+	foreach($data->hourly->data as $h) {
+
+		/* next day */
+		if($i && !($i % 24)) {
+			$ret['weather'][$idx]['hourly'] = $hourly;
+			$hourly = [];
+			++$idx;
+		}
+
+		$hourly[] = [
+			'ts' => $h->time,
+			'temp' => $h->temperature,
+			'windspeed' => number_format($h->windSpeed, 2)
+		];
+
+		++$i;
+	}
+	$ret['weather'][$idx]['hourly'] = $hourly;
 
 	return $ret;
 }

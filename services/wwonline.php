@@ -11,7 +11,7 @@ function wwonline_query($lat, $lon, $cnt) {
 		'format' => 'json',
 		'showmap' => 'no',
 		'show_comments' => 'no',
-		'tp' => 24, /* 24h intval (daily) */
+		'tp' => '1',
 		'date' => 'today'
 	);
 	$uri = WWONLINE_BASE.'?'.http_build_query($opts);
@@ -35,10 +35,25 @@ function wwonline_refine($data) {
 
 	$cnt = count($data->weather);
 	for($i = 0; $i < $cnt; ++$i) {
+		$ts = strtotime($data->weather[$i]->date);
+		$hourly = [];
+		foreach($data->weather[$i]->hourly as $h) {
+			$hts = sprintf("%04d", $h->time); /* Always in four-digits format */
+			$mm = substr($hts, -2);
+			$hh = substr($hts, 0, 2);
+			$hts = strtotime("${hh}:${mm}", $ts);
+			$hourly[] = [
+				'ts' => $hts,
+				'temp' => $h->tempC,
+				'windspeed' => $h->windspeedKmph
+			];
+		}
+
 		$ret['weather'][] = [
-			'ts' => strtotime($data->weather[$i]->date),
+			'ts' => $ts,
 			'temp' => $data->weather[$i]->hourly[0]->tempC,
 			'windspeed' => $data->weather[$i]->hourly[0]->windspeedKmph,
+			'hourly' => $hourly
 		];
 	}
 

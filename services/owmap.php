@@ -25,10 +25,12 @@ function owmap_refine($data) {
 
 	$cnt = $data->cnt;
 	for($i = 0; $i < $cnt; ++$i) {
+		$hourly = []; /* XXX to be filled */
 		$ret['weather'][] = [
 			'ts' => $data->list[$i]->dt,
 			'temp' => $data->list[$i]->temp->day,
 			'windspeed' => number_format($data->list[$i]->speed / 1000 * 3600, 2), /* mps -> kmph */
+			'hourly' => $hourly
 		];
 	}
 	return $ret;

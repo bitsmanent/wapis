@@ -28,8 +28,11 @@ A call to wapis_query() produces a response data like this:
         ...
 ```
 
-Optionally, the ``current`` key may be filled with the current weather
-informations. More data and documentation will be added soon.
+Optionally, the following keys may be provided:
+* "current", filled with the current weather informations
+* "hourly", filled with hourly forecast
+
+More data and documentation will be added soon.
 
 ##### Services
 Currently implemented services:
