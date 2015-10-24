@@ -4,7 +4,6 @@ define('FORECAST_BASE', 'https://api.forecast.io/forecast/');
 function forecast_query($lat, $lon, $cnt) {
 	if(!defined('FORECAST_APIKEY'))
 		return 'FORECAST_APIKEY not set';
-	/* XXX $cnt not implemented */
 	$uri = FORECAST_BASE.FORECAST_APIKEY."/${lat},${lon}";
 	$tm = 0;
 	if($tm)
@@ -16,10 +15,10 @@ function forecast_query($lat, $lon, $cnt) {
 	$uri .= '?'.http_build_query($qry);
 	if(!($d = file_get_contents($uri)))
 		return NULL;
-	return forecast_refine(json_decode($d));
+	return forecast_refine(json_decode($d), $cnt);
 }
 
-function forecast_refine($data) {
+function forecast_refine($data, $cnt) {
 	$ret = [
 		'service' => 'forecast',
 		'weather' => []
@@ -31,9 +30,12 @@ function forecast_refine($data) {
 		'windspeed' => number_format($data->currently->windSpeed, 2),
 	];
 
-	$cnt = count($data->daily->data);
+	$t = count($data->daily->data);
+	if($t < $cnt)
+		$cnt = $t;
+	$end = $cnt;
 	foreach($data->daily->data as $d) {
-		if(--$cnt < 0)
+		if(--$end < 0)
 			break;
 		$hourly = [];
 		$ret['weather'][] = [
@@ -49,12 +51,13 @@ function forecast_refine($data) {
 	$idx = 0;
 	$hourly = [];
 	foreach($data->hourly->data as $h) {
-
 		/* next day */
 		if($i && !($i % 24)) {
 			$ret['weather'][$idx]['hourly'] = $hourly;
 			$hourly = [];
 			++$idx;
+			if($idx >= $cnt)
+				break;
 		}
 
 		$hourly[] = [
@@ -65,7 +68,8 @@ function forecast_refine($data) {
 
 		++$i;
 	}
-	$ret['weather'][$idx]['hourly'] = $hourly;
+	if($idx < $cnt)
+		$ret['weather'][$idx]['hourly'] = $hourly;
 
 	return $ret;
 }
